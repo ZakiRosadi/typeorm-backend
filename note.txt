@@ -1,0 +1,15 @@
+preparation :
+install npx typeorm init --name MyProject --database postgres
+install npm i express
+install npm i @types/express
+install npm i nodemon
+install ts-node if you haven't
+
+
+- testing index.ts by sending message "hello world" fungsikan duluu
+- create file inside entities folder to communicate to database. bikin id dan colomn apaan aja
+- put the code script in package.json= "migrate:generate": "npx typeorm-ts-node-commonjs migration:generate src/migrations/Pemilu -d ./src/data-source.ts", untuk ngedefinisikan apa apa saja yang ada dalam entities. and then run it
+- put the code "migrate:run": "npx typeorm-ts-node-commonjs migration:run -d ./src/data-source.ts". and then run it
+
+after prepartion above, you're ready to code.
+services, routes, and controllers
