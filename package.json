@@ -4,6 +4,7 @@
   "description": "Awesome project developed with TypeORM.",
   "type": "commonjs",
   "devDependencies": {
+    "@types/multer": "^1.4.10",
     "@types/node": "^16.11.10",
     "nodemon": "^3.0.1",
     "ts-node": "10.7.0",
@@ -11,17 +12,21 @@
   },
   "dependencies": {
     "@types/express": "^4.17.21",
+    "@types/express-fileupload": "^1.4.4",
     "cloudinary": "^1.41.0",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "joi": "^17.11.0",
+    "multer": "^1.4.5-lts.1",
     "pg": "^8.4.0",
     "reflect-metadata": "^0.1.13",
     "typeorm": "0.3.17"
   },
   "scripts": {
     "start": "nodemon --exec ts-node src/index.ts",
+    "dev": "ts-node src//middlewares/ImageMiddlewares.ts",
     "typeorm": "typeorm-ts-node-commonjs",
-    "migrate:generate": "npx typeorm-ts-node-commonjs migration:generate ./src/migrations/Paslon -d ./src/data-source.ts",
+    "migrate:generate": "npx typeorm-ts-node-commonjs migration:generate ./src/migrations/Partai -d ./src/data-source.ts",
     "migrate:run": "npx typeorm-ts-node-commonjs migration:run -d ./src/data-source.ts"
   }
 }

@@ -13,6 +13,17 @@ export default new (class PaslonControllers {
   }
 
   find(req: Request, res: Response) {
-    PaslonService.find(req, res);
+    PaslonService.findall(req, res);
+  }
+
+  findone(req: Request, res: Response) {
+    PaslonService.findone(req, res)
+  }
+
+  update(req: Request, res: Response) {
+    PaslonService.update(req, res)
+  }
+  delete(req: Request, res: Response) {
+    PaslonService.delete(req, res)
   }
 })();

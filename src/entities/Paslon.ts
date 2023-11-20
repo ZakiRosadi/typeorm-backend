@@ -6,14 +6,14 @@ export class Paslon {
   id: number;
 
   @Column()
-  idOrder: "string";
+  idOrder: number;
 
   @Column()
-  namaPaslon: "string";
+  namaPaslon: string;
 
   @Column()
-  visiMisi: "string";
+  visiMisi: string;
 
   @Column()
-  image: " string ";
+  image: string;
 }
