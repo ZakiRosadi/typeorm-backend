@@ -3,7 +3,7 @@ import { Pemilu } from "../entities/Pemilu";
 import { AppDataSource } from "../data-source";
 import { Request, Response } from "express";
 
-interface IDataResponse {}
+
 
 export default new (class PemiluServices {
   private readonly PemiluRepository: Repository<Pemilu> =
