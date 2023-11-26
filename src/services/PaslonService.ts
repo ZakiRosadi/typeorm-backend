@@ -8,20 +8,37 @@ import * as fs from "fs";
 
 
 export default new class PaslonService {
-  private readonly privatePaslonService: Repository<Paslon> =
-    AppDataSource.getRepository(Paslon);
+  private readonly privatePaslonService: Repository<Paslon> = AppDataSource.getRepository(Paslon);
 
   async findall(req: Request, res: Response): Promise<Response> {
     try {
-      const responseData = await this.privatePaslonService.find();
-
-      return res.status(200).json({
-        message: "successfully get all data",
-        propertyData: responseData,
+      // const responseData = await this.privatePaslonService.find();
+      const responseData = await this.privatePaslonService.find({
+        relations: ["Partai"],
       });
+
+      const paslonList = responseData.map((partai) => {
+        return {
+          id: partai.id,
+          namaPaslon: partai.namaPaslon,
+          idOrder: partai.idOrder,
+          visiMisi: partai.visiMisi,
+          image: partai.image,
+          partai: partai.Partai.map((data) => {
+            return {
+              data: data
+            }
+          }),
+        }
+      })
+
+      return res.status(200).json({ message: "successfully get data", propertiData: paslonList });
+
     } catch (error) {
+      console.log(error);
+
       return res
-        .status(404)
+        .status(500)
         .json({ message: "there is a trouble while running" });
     }
   }
@@ -53,6 +70,7 @@ export default new class PaslonService {
     } catch (error) {
       return res.status(404).json({ message: "failed to insert data" });
     }
+
   }
 
 

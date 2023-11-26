@@ -18,6 +18,9 @@ export default new class PartaiService {
     async findall(req: Request, res: Response): Promise<Response> {
         try {
             const dataResponse = await this.partaiRepository.find();
+            // const dataResponse = await this.partaiRepository.find({
+            //     relations: ["paslon"]
+            // });
             if (!dataResponse) {
                 return res.status(404).json({ message: "data not found" });
             }
@@ -41,7 +44,6 @@ export default new class PartaiService {
     async create(req: Request, res: Response): Promise<Response> {
         try {
             const data = req.body
-            console.log(data);
 
             const { error } = PartaiUtil.validate(data);
             if (error) return res.status(404).json(error.message);
@@ -55,8 +57,8 @@ export default new class PartaiService {
                 visiMisi: data.visiMisi,
                 alamat: data.alamat,
                 image: dataCloud.secure_url,
+                paslon: data.paslon
             });
-            console.log(objectData);
 
             await fs.unlinkSync(req.file.path)
 
@@ -86,6 +88,7 @@ export default new class PartaiService {
             let visiMisi: string | undefined = data.visiMisi ?? selectedPartai.visiMisi
             let alamat: string | undefined = data.alamat ?? selectedPartai.alamat
             let image: string | undefined = data.image ?? selectedPartai.image
+            let paslon: any | undefined = data.paslon ?? selectedPartai.paslon
 
 
 
@@ -97,11 +100,10 @@ export default new class PartaiService {
                 // await cloudinary.uploader.destroy(image).then(result => console.log(result));
 
                 const newData = await cloudinary.uploader.upload(req.file.path);
-
-
                 image = newData.secure_url;
                 await unlinkAsync(req.file.path)
             }
+
 
             await this.partaiRepository.update({ id: id }, {
                 namaPartai: namaPartai,
@@ -109,6 +111,7 @@ export default new class PartaiService {
                 visiMisi: visiMisi,
                 alamat: alamat,
                 image: image,
+                paslon: paslon,
                 postedAt: new Date()
             })
 

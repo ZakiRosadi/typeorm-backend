@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, ManyToOne } from "typeorm";
+import { Paslon } from "./Paslon";
+
 
 @Entity()
 export class Partai {
@@ -22,6 +24,13 @@ export class Partai {
 
     @Column({ nullable: false, default: () => "CURRENT_TIMESTAMP" })
     postedAt: Date;
+
+    @ManyToOne(() => Paslon, (paslon) => paslon.Partai, {
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+
+    })
+    paslon: Paslon
 }
 
 

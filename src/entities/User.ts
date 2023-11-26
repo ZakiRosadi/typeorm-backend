@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn } from "typeorm";
+import { Pemilu } from "./Pemilu";
+import { Voter } from "./Voter";
 
 @Entity()
 export class User {
@@ -21,4 +23,13 @@ export class User {
     @Column()
     password: string;
 
+    @OneToMany(() => Pemilu, (pemilu) => pemilu.user, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
+    })
+    pemilu: Pemilu[]
+
+    // @OneToOne(() => Voter)
+    // @JoinColumn()
+    // voter: Voter
 }

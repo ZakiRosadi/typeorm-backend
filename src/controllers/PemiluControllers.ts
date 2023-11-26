@@ -5,4 +5,8 @@ export default new (class PemiluControllers {
   findall(req: Request, res: Response) {
     PemiluServices.findall(req, res);
   }
+
+  create(req: Request, res: Response) {
+    PemiluServices.create(req, res)
+  }
 })();

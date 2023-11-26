@@ -13,14 +13,22 @@ export default new class AuthMiddlewares {
             const tokenSplit = authorization.split(" ")[1];
 
             try {
-                const loginSession = jwt.verify(tokenSplit, "TOKEN");
-                res.locals.loginsession = loginSession;
+                const loginsession = jwt.verify(tokenSplit, "TOKEN");
+                res.locals.loginsession = loginsession;
                 next()
             } catch (error) {
+                console.log(error)
                 return res.status(404).json({ message: "invalid token" })
             }
         } catch (error) {
             return res.status(500).json({ message: "internal server error" })
         }
+    }
+
+
+    decodeWithoutBarier(reqHeader: string): any {
+        const dataWithoutBarier = reqHeader.split(" ")[1];
+        const decodeJWT = jwt.decode(dataWithoutBarier);
+        return decodeJWT;
     }
 }

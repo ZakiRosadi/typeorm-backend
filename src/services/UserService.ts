@@ -11,7 +11,7 @@ export default new class UserService {
     async register(req: Request, res: Response): Promise<Response> {
         try {
             const data = req.body
-            console.log({ message: "register data", data });
+
 
             const responseData: number = await this.userRepository.count({ where: { username: data.username } })
             if (responseData === 2) {
@@ -28,7 +28,7 @@ export default new class UserService {
                 password: bcryptPassword
             })
 
-            console.log(User);
+
 
             const insertData = await this.userRepository.save(User)
             return res.status(200).json({ message: "successfully insert new data", insertData: insertData })
@@ -49,7 +49,7 @@ export default new class UserService {
     async login(req: Request, res: Response): Promise<Response> {
         try {
             const data = req.body
-            console.log(data);
+
 
             const responseData = await this.userRepository.findOne({ where: { username: data.username } })
             if (responseData === undefined) {
@@ -66,13 +66,13 @@ export default new class UserService {
 
             })
 
-            const getToken = await jwt.sign({ user }, "TOKEN", { expiresIn: "1h" });
-            console.log(getToken);
+            const getToken = await jwt.sign({ user }, "TOKEN", { expiresIn: "2h" });
+
             return res.status(200).json({ message: "successfully login", token: getToken })
 
         } catch (error) {
             console.log(error);
-            return res.status(404).json({ message: "something is wrong with login" })
+            return res.status(500).json({ message: "something is wrong with login" })
         }
     }
 }

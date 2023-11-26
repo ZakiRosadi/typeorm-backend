@@ -1,5 +1,6 @@
 import { AppDataSource } from "./data-source";
 import * as express from "express";
+import * as cors from "cors";
 import { Request, Response } from "express";
 import PemiluRouter from "./routes/PemiluRoutes";
 import paslonRouter from "./routes/PaslonRouter";
@@ -11,8 +12,22 @@ AppDataSource.initialize()
   .then(async () => {
     const app = express();
     const PORT = 5000;
+
+    const corsOption = {
+      "origin": "*",
+      "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+      "preflightContinue": false,
+      "optionsSuccessStatus": 204
+    }
+
+    // app.use(session({
+    //   secret: 'TOKEN',
+    //   resave: false,
+    //   saveUninitialized: true
+    // }))
+
     app.use(express.json());
-    // app.use(express.urlencoded({ extended: true }));
+    app.use(cors(corsOption));
     app.use("/api/v1", PemiluRouter);
     app.use("/api/v1", paslonRouter);
     app.use("/api/v1", PartaiRouter);

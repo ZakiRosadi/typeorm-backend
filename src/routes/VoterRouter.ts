@@ -6,6 +6,6 @@ const voterRouter = express.Router();
 
 voterRouter.get("/voter", AuthMiddlewares.authentication, VoterControllers.find);
 voterRouter.get("/voter/:id", AuthMiddlewares.authentication, VoterControllers.findone);
-voterRouter.post("/voter", AuthMiddlewares.authentication, VoterControllers.create);
+voterRouter.post("/vote", AuthMiddlewares.authentication, VoterControllers.create);
 
 export default voterRouter

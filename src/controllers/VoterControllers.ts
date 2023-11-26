@@ -11,6 +11,6 @@ export default new class VoterControllers {
     }
 
     create(req: Request, res: Response) {
-        VoterService.create(req, res);
+        return VoterService.create(req, res);
     }
 }
